@@ -1,26 +1,145 @@
 @import "tailwindcss";
 
+/* Define theme tokens - Tailwind v4 utility generation */
+@theme {
+  --color-bg: #0a0a0a;
+  --color-fg: #ededed;
+  --color-gold: #c8a24e;
+  --color-gold-light: #e8c97a;
+  --color-gold-dark: #a07d2e;
+  --color-surface: #141414;
+  --color-panel: #1a1a1a;
+  --color-muted: #888888;
+  --color-rim: #2a2a2a;
+}
+
+/* Explicit :root vars for JS/non-Tailwind access */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --c-bg: #0a0a0a;
+  --c-fg: #ededed;
+  --c-gold: #c8a24e;
+  --c-gold-light: #e8c97a;
+  --c-gold-dark: #a07d2e;
+  --c-surface: #141414;
+  --c-panel: #1a1a1a;
+  --c-muted: #888888;
+  --c-rim: #2a2a2a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0a0a0a;
+  color: #ededed;
+  overflow-x: hidden;
+  line-height: 1.6;
+  font-family: var(--font-sans, 'Outfit', sans-serif);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a07d2e;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c8a24e;
+}
+
+::selection {
+  background-color: #c8a24e;
+  color: #0a0a0a;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* Nav visibility helpers */
+.hidden-mobile {
+  display: flex;
+}
+
+.show-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+
+  .show-mobile {
+    display: flex !important;
+  }
+}
+
+
+/* Utility classes */
+.gradient-text {
+  background: linear-gradient(135deg, #e8c97a, #c8a24e, #a07d2e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(200, 162, 78, 0.15);
+}
+
+.underline-hover {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #c8a24e;
+  transition: width 0.3s ease;
+}
+
+.underline-hover:hover::after {
+  width: 100%;
+}
+
+/* Section spacing */
+.section-pad {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+.section-inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
